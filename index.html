@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Surprise for Siya</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=PT+Sans:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PT Sans", sans-serif;
+        }
+
+        body {
+            background: url('couple.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            color: #000;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+            transition: background 1s ease-in-out;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            font-family: 'Great Vibes', cursive;
+            animation: fadeIn 2s ease;
+        }
+
+        .siya {
+            font-size: 4rem;
+            padding: 20px;
+            color: #000;
+            text-align: center;
+            background: linear-gradient(90deg, rgba(255, 106, 106, 0.8), rgba(255, 198, 198, 0.8));
+            border-radius: 30px;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            user-select: none;
+        }
+
+        .siya:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(90deg, rgba(255, 198, 198, 0.8), rgba(255, 106, 106, 0.8));
+        }
+
+        .hidden-message {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            opacity: 0;
+            text-align: center;
+            color: white;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-size: contain;
+            opacity: 0.8;
+            animation: float 2s ease forwards;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-300px);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            animation: confetti-fall 3s ease forwards;
+            border-radius: 50%;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .siya {
+                font-size: 3rem;
+                padding: 10px;
+            }
+
+            .hidden-message {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <h1 id="mainMessage">Hey Siya, just click your name!</h1>
+        <div class="siya" onclick="triggerSurprise()">Si<span>ya</span></div>
+        <div class="hidden-message" id="hiddenMessage">🌟 Surprise Unlocked! 🌟</div>
+    </div>
+
+    <audio id="clickSound" src="https://www.soundjay.com/button/sounds/button-20.mp3" preload="auto"></audio>
+
+    <script>
+        const colors = ['#FF69B4', '#FF4500', '#FFD700', '#00FA9A', '#1E90FF', '#DA70D6', '#FF6347', '#32CD32'];
+
+        function triggerSurprise() {
+            console.log("Button clicked!");  // Debugging log
+
+            // Play sound effect
+            const clickSound = document.getElementById('clickSound');
+            clickSound.play();
+
+            // Reveal the hidden message with animation
+            const hiddenMessage = document.getElementById('hiddenMessage');
+            hiddenMessage.style.opacity = 1;
+            hiddenMessage.style.transform = "scale(1.2)";
+
+            // Change the main message to "Click Siya frequently"
+            const mainMessage = document.getElementById('mainMessage');
+            mainMessage.innerText = "Click Siya frequently!";
+
+            // Change background after surprise is unlocked
+            document.body.style.background = 'linear-gradient(to right, #ffb6c1, #ffe4e1)';
+
+            // Create heart and confetti effects
+            for (let i = 0; i < 20; i++) {
+                createHeart();
+            }
+            for (let i = 0; i < 30; i++) {
+                createConfetti();
+            }
+        }
+
+        function getRandomColor() {
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '80vh';
+            heart.style.background = getRandomColor(); // Set random color for heart
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 2000);
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '0vh';
+            confetti.style.backgroundColor = getRandomColor(); // Set random color for confetti
+
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 3000);
+        }
+    </script>
+
+</body>
+
+</html>
